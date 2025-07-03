@@ -1,0 +1,160 @@
+{
+    // configuration for code deployment to target and remote debugging 
+    // required by: tasks.json, launch.json
+    "ENV_CONFIG": { 
+         "TARGET_IP": "192.168.0.130",
+         "DEBUG_PORT": "3333",
+         "BINARY_DIR": "${workspaceFolder}/build",
+         "BINARY": "mqtt_client",
+         "TARGET_DIR": "/usr/bin",
+    },
+    "cmake.generator": "Unix Makefiles",
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.configureArgs": [
+
+    ],
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    
+
+    
+"files.associations": {
+    "system_error": "cpp",
+    "memory": "cpp",
+    "random": "cpp",
+    "optional": "cpp",
+    "array": "cpp",
+    "atomic": "cpp",
+    "bit": "cpp",
+    "*.tcc": "cpp",
+    "cctype": "cpp",
+    "clocale": "cpp",
+    "cmath": "cpp",
+    "cstdarg": "cpp",
+    "cstddef": "cpp",
+    "cstdint": "cpp",
+    "cstdio": "cpp",
+    "cstdlib": "cpp",
+    "cwchar": "cpp",
+    "cwctype": "cpp",
+    "deque": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "exception": "cpp",
+    "algorithm": "cpp",
+    "functional": "cpp",
+    "iterator": "cpp",
+    "memory_resource": "cpp",
+    "numeric": "cpp",
+    "string": "cpp",
+    "string_view": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "fstream": "cpp",
+    "initializer_list": "cpp",
+    "iosfwd": "cpp",
+    "iostream": "cpp",
+    "istream": "cpp",
+    "limits": "cpp",
+    "new": "cpp",
+    "ostream": "cpp",
+    "sstream": "cpp",
+    "stdexcept": "cpp",
+    "streambuf": "cpp",
+    "typeinfo": "cpp",
+    "cstring": "cpp",
+    "cinttypes": "cpp",
+    "chrono": "cpp",
+    "condition_variable": "cpp",
+    "ctime": "cpp",
+    "ratio": "cpp",
+    "mutex": "cpp",
+    "thread": "cpp",
+    "iomanip": "cpp",
+    "any": "cpp",
+    "bitset": "cpp",
+    "cfenv": "cpp",
+    "charconv": "cpp",
+    "codecvt": "cpp",
+    "complex": "cpp",
+    "csetjmp": "cpp",
+    "csignal": "cpp",
+    "cuchar": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "map": "cpp",
+    "set": "cpp",
+    "unordered_set": "cpp",
+    "regex": "cpp",
+    "future": "cpp",
+    "scoped_allocator": "cpp",
+    "shared_mutex": "cpp",
+    "typeindex": "cpp",
+    "valarray": "cpp",
+    "variant": "cpp",
+    "*.conf": "bitbake",
+    "*.inc": "bitbake"
+},
+"spellright.language": [
+    "en"
+],
+"spellright.documentTypes": [
+    "markdown",
+    "latex",
+    "plaintext",
+    "properties",
+    "cpp",
+    "jsonc",
+    "Log",
+    "python",
+    "bat"
+],
+"spellright.parserByClass": {
+    "properties": {
+        "parser": "plain"
+    },
+    "Log": {
+        "parser": "plain"
+    }
+},
+    "clangd.path": "/home/eddie/.vscode-server/data/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd",
+    "clangd.arguments": [
+        "-log=verbose",
+        "-pretty",
+        "--background-index",
+        "--header-insertion=never",
+        "--query-driver=/opt/arago-x86_64/sysroots/x86_64-arago-linux/usr/bin/arm-none-linux-gnueabihf-g++", //for cross compile usage
+        "--compile-commands-dir=${workspaceFolder}/build"
+    ],
+    "C_Cpp.default.compilerPath": "/opt/arago-x86_64/sysroots/x86_64-arago-linux/usr/bin/arm-none-linux-gnueabihf-g++",
+    "cmake.cpptools.compilerPath": "/opt/arago-x86_64/sysroots/x86_64-arago-linux/usr/bin/",
+    "python.autoComplete.extraPaths": [
+        "/home/eddie/simplest-yocto-setup/bitbake/lib",
+        "/home/eddie/simplest-yocto-setup/meta/lib"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/eddie/simplest-yocto-setup/bitbake/lib",
+        "/home/eddie/simplest-yocto-setup/meta/lib",
+        "./tests/test_listener"
+    ],
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off",
+        "files.trimTrailingWhitespace": false
+    },
+    "[shellscript]": {
+        "files.eol": "\n",
+        "files.trimTrailingWhitespace": false
+    },
+    "C_Cpp.default.systemIncludePath": [
+        "/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi-cpp"
+    ],
+    "clangd.checkUpdates": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.clangTidy.path": "/usr/bin/clang-tidy",
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format-15",
+    "C_Cpp.clang_format_style": "Google",
+    "clang-format.executable": "/usr/bin/clang-format-15",
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+}

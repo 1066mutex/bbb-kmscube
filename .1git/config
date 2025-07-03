@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[branch "master"]
+	vscode-merge-base = origin/master
+	gk-merge-base = origin/master
+[remote "openglse-cube.git"]
+	url = git@github.com:1066mutex/openglse-cube.git
+	fetch = +refs/heads/*:refs/remotes/openglse-cube.git/*

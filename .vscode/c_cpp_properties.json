@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/include/**"
+            ],
+            "compileCommands": "${config:cmake.sourceDirectory}/build/compile_commands.json",
+            "configurationProvider": "ms-vscode.cpptools",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}

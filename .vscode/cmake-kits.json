@@ -1,0 +1,15 @@
+[
+  {
+      "name": "GCC arm-none-linux-gnueabihf - custom toolchain setup",
+      "toolchainFile": "${workspaceFolder}/gnueabi-toolchain.cmake"
+  }
+//   ,
+//   {
+//       "name": "GCC host",
+//       "compilers": {
+//           "C": "gcc",
+//           "CXX": "g++"
+//       },
+//       "toolchainFile": "${workspaceFolder}/set_host_build.cmake"
+//   }
+]

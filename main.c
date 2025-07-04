@@ -1,3 +1,10 @@
+/*
+ * main.c - Entry point for the kmscube application
+ *
+ * This file handles command-line parsing, device and mode selection, and
+ * initializes the DRM, GBM, and EGL subsystems. It then selects the appropriate
+ * rendering mode and enters the main rendering loop.
+ */
 
 #include <string.h>
 #include <stdio.h>
@@ -12,10 +19,12 @@
 GST_DEBUG_CATEGORY(kmscube_debug);
 #endif
 
+// Global pointers to the main EGL, GBM, and DRM objects
 static const struct egl *egl;
 static const struct gbm *gbm;
 static const struct drm *drm;
 
+// Short and long options for command-line parsing
 static const char *shortopts = "Ac:D:f:M:m:s:V:v:x";
 
 static const struct option longopts[] = {
@@ -33,6 +42,7 @@ static const struct option longopts[] = {
 	{0, 0, 0, 0}
 };
 
+// Print usage information
 static void usage(const char *name)
 {
 	printf("Usage: %s [-ADfMmsVvx]\n"
@@ -63,6 +73,7 @@ static void usage(const char *name)
 
 int main(int argc, char *argv[])
 {
+	// Command-line option variables
 	const char *device = NULL;
 	const char *video = NULL;
 /*	const char *shadertoy = NULL;
@@ -87,18 +98,20 @@ int main(int argc, char *argv[])
 	GST_DEBUG_CATEGORY_INIT(kmscube_debug, "kmscube", 0, "kmscube video pipeline");
 #endif
 
+	// Parse command-line options
 	while ((opt = getopt_long_only(argc, argv, shortopts, longopts, NULL)) != -1) {
 		switch (opt) {
 		case 'A':
-			atomic = 1;
+			atomic = 1; // Use atomic modesetting
 			break;
 		case 'c':
-			count = strtoul(optarg, NULL, 0);
+			count = strtoul(optarg, NULL, 0); // Number of frames
 			break;
 		case 'D':
-			device = optarg;
+			device = optarg; // DRM device path
 			break;
 		case 'f': {
+			// Parse FOURCC format code
 			char fourcc[4] = "    ";
 			int length = strlen(optarg);
 			if (length > 0)
@@ -114,6 +127,7 @@ int main(int argc, char *argv[])
 			break;
 		}
 		case 'M':
+			// Select rendering mode
 			if (strcmp(optarg, "smooth") == 0) {
 				mode = SMOOTH;
 			} else if (strcmp(optarg, "rgba") == 0) {
@@ -129,7 +143,7 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 'm':
-			modifier = strtoull(optarg, NULL, 0);
+			modifier = strtoull(optarg, NULL, 0); // Buffer modifier
 			break;
 /*		case 'p':
 			perfcntr = optarg;
@@ -139,13 +153,14 @@ int main(int argc, char *argv[])
 			shadertoy = optarg;
 			break;*/
 		case 's':
-			samples = strtoul(optarg, NULL, 0);
+			samples = strtoul(optarg, NULL, 0); // MSAA samples
 			break;
 		case 'V':
 			mode = VIDEO;
-			video = optarg;
+			video = optarg; // Video file for textured cube
 			break;
 		case 'v':
+			// Parse video mode string and optional refresh rate
 			p = strchr(optarg, '-');
 			if (p == NULL) {
 				len = strlen(optarg);
@@ -159,23 +174,27 @@ int main(int argc, char *argv[])
 			mode_str[len] = '\0';
 			break;
 		case 'x':
-			surfaceless = true;
+			surfaceless = true; // Use surfaceless mode
 			break;
 		default:
 			usage(argv[0]);
 			return -1;
 		}
 	}
-
+    int i;
+	// Initialize DRM (atomic or legacy)
 	if (atomic)
 		drm = init_drm_atomic(device, mode_str, vrefresh, count);
 	else
-		drm = init_drm_legacy(device, mode_str, vrefresh, count);
+		//drm = init_drm_legacy(device, mode_str, vrefresh, count);
+        
+        i = init_drm(drm, device, mode_str, vrefresh,  count);
 	if (!drm) {
 		printf("failed to initialize %s DRM\n", atomic ? "atomic" : "legacy");
 		return -1;
 	}
 
+	// Initialize GBM (Generic Buffer Management)
 	gbm = init_gbm(drm->fd, drm->mode->hdisplay, drm->mode->vdisplay,
 			format, modifier, surfaceless);
 	if (!gbm) {
@@ -183,15 +202,21 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-    mode = SMOOTH;
+    // Default to smooth mode if not set
+    //mode = SMOOTH;
 
+	// Initialize EGL and select rendering mode
 	if (mode == SMOOTH)
+		// Smooth-shaded cube
 		egl = init_cube_smooth(gbm, samples);
 	else if (mode == VIDEO)
+		// Video-textured cube
 		egl = init_cube_video(gbm, video, samples);
 /*	else if (mode == SHADERTOY)
+		// Shadertoy mode (if supported)
 		egl = init_cube_shadertoy(gbm, shadertoy, samples);*/
 	else
+		// Textured cube (RGBA, NV12, etc.)
 		egl = init_cube_tex(gbm, mode, samples);
 
 	if (!egl) {
@@ -212,5 +237,6 @@ int main(int argc, char *argv[])
 	glClearColor(0.5, 0.5, 0.5, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	// Enter the main rendering loop
 	return drm->run(gbm, egl);
 }

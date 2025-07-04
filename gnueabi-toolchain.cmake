@@ -78,28 +78,28 @@ add_custom_command(TARGET build_deploy POST_BUILD
     #COMMAND sshpass -p "root" scp ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} root@${BOARD_IP}:${TARGET_DIR}
 )
 
-add_custom_command(TARGET host_build PRE_BUILD
-    COMMAND echo "host build "
-    COMMAND cmake -P "${CMAKE_CURRENT_SOURCE_DIR}/set_host_build.cmake"
-)
+# add_custom_command(TARGET host_build PRE_BUILD
+#     COMMAND echo "host build "
+#     COMMAND cmake -P "${CMAKE_CURRENT_SOURCE_DIR}/set_host_build.cmake"
+# )
 
-add_custom_command(TARGET build_debug POST_BUILD
-    COMMAND echo "Deploying executable to remote target ${BOARD_IP}:${PORT_NO} ${TARGET_DIR} "
-    COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} root@${BOARD_IP}:${TARGET_DIR}
-    COMMAND echo "Starting GDB server...... "
+# add_custom_command(TARGET build_debug POST_BUILD
+#     COMMAND echo "Deploying executable to remote target ${BOARD_IP}:${PORT_NO} ${TARGET_DIR} "
+#     COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} root@${BOARD_IP}:${TARGET_DIR}
+#     COMMAND echo "Starting GDB server...... "
 
-    COMMAND ssh -t root@${BOARD_IP} 'gdbserver :${PORT_NO} nice -n -20 ./../../${TARGET_DIR}/${PROJECT_NAME}'
-)
-# # Note: To start the application with QSPY, we need to pass the host IP address
-# to the application.
-add_custom_command(TARGET qspy_debug POST_BUILD
-    COMMAND echo "Deploying QSPY enabled executable to remote target ${BOARD_IP}:${PORT_NO} ${TARGET_DIR} 192.168.0.68"
-    COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} root@${BOARD_IP}:${TARGET_DIR}
-    COMMAND echo "Starting GDB server...... "
+#     COMMAND ssh -t root@${BOARD_IP} 'gdbserver :${PORT_NO} nice -n -20 ./../../${TARGET_DIR}/${PROJECT_NAME}'
+# )
+# # # Note: To start the application with QSPY, we need to pass the host IP address
+# # to the application.
+# add_custom_command(TARGET qspy_debug POST_BUILD
+#     COMMAND echo "Deploying QSPY enabled executable to remote target ${BOARD_IP}:${PORT_NO} ${TARGET_DIR} 192.168.0.68"
+#     COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} root@${BOARD_IP}:${TARGET_DIR}
+#     COMMAND echo "Starting GDB server...... "
 
-    COMMAND echo "When remote GDB server is running! Start local debugger! "
-    COMMAND ssh -t root@${BOARD_IP} 'gdbserver :${PORT_NO} ./../../${TARGET_DIR}/${PROJECT_NAME} 192.168.0.68 '
-)
+#     COMMAND echo "When remote GDB server is running! Start local debugger! "
+#     COMMAND ssh -t root@${BOARD_IP} 'gdbserver :${PORT_NO} ./../../${TARGET_DIR}/${PROJECT_NAME} 192.168.0.68 '
+# )
 
 # add_custom_command(TARGET unit_test
 #     COMMAND echo "  [STARTING UNIT TESTS] "

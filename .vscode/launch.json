@@ -8,7 +8,7 @@
             "name": "(gdb) local C++ Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/mqtt_client",
+            "program": "${workspaceFolder}/build/gfx-ex",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -53,22 +53,22 @@
              }
         },
         {
-            "name": "(gdb)debug deployed code",
+            "name": "debug deployed code",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${config:ENV_CONFIG.BINARY_DIR}/mqtt_client",
+            "program": "${config:ENV_CONFIG.BINARY}",
             "args": [
                 "192.168.0.68"
             ],
             "miDebuggerServerAddress": "${config:ENV_CONFIG.TARGET_IP}:${config:ENV_CONFIG.DEBUG_PORT}",
             "stopAtEntry": true,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/build",
             "environment": [],
             "externalConsole": false,
             "targetArchitecture": "arm64",
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
-            "preLaunchTask": "remote-deploy",
+            "preLaunchTask": "remote-debug",
             "setupCommands": [
                 {
                     "description": "Test",
@@ -83,6 +83,11 @@
                 {
                     "description": "Set a breakpoint on main",
                     "text": "b main"
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
                 }
             ]
         },

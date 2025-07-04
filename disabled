@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/main.c.o -c /home/eddie/lab2/kmscube/main.c",
+  "file": "/home/eddie/lab2/kmscube/main.c",
+  "output": "CMakeFiles/gfx-ex.dir/main.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/drm-atomic.c.o -c /home/eddie/lab2/kmscube/drm-atomic.c",
+  "file": "/home/eddie/lab2/kmscube/drm-atomic.c",
+  "output": "CMakeFiles/gfx-ex.dir/drm-atomic.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/common.c.o -c /home/eddie/lab2/kmscube/common.c",
+  "file": "/home/eddie/lab2/kmscube/common.c",
+  "output": "CMakeFiles/gfx-ex.dir/common.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/cube-tex.c.o -c /home/eddie/lab2/kmscube/cube-tex.c",
+  "file": "/home/eddie/lab2/kmscube/cube-tex.c",
+  "output": "CMakeFiles/gfx-ex.dir/cube-tex.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/cube-smooth.c.o -c /home/eddie/lab2/kmscube/cube-smooth.c",
+  "file": "/home/eddie/lab2/kmscube/cube-smooth.c",
+  "output": "CMakeFiles/gfx-ex.dir/cube-smooth.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/drm-common.c.o -c /home/eddie/lab2/kmscube/drm-common.c",
+  "file": "/home/eddie/lab2/kmscube/drm-common.c",
+  "output": "CMakeFiles/gfx-ex.dir/drm-common.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/drm-legacy.c.o -c /home/eddie/lab2/kmscube/drm-legacy.c",
+  "file": "/home/eddie/lab2/kmscube/drm-legacy.c",
+  "output": "CMakeFiles/gfx-ex.dir/drm-legacy.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/esTransform.c.o -c /home/eddie/lab2/kmscube/esTransform.c",
+  "file": "/home/eddie/lab2/kmscube/esTransform.c",
+  "output": "CMakeFiles/gfx-ex.dir/esTransform.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/frame-512x512-NV12.c.o -c /home/eddie/lab2/kmscube/frame-512x512-NV12.c",
+  "file": "/home/eddie/lab2/kmscube/frame-512x512-NV12.c",
+  "output": "CMakeFiles/gfx-ex.dir/frame-512x512-NV12.c.o"
+},
+{
+  "directory": "/home/eddie/lab2/kmscube/build",
+  "command": "/opt/arago-2023.04/sysroots/x86_64-arago-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc --sysroot=/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi -DSG_RESOURCE_PATH=\\\"/usr/share/fcl-gfx-test/resources/\\\" -I/home/eddie/lab2/kmscube -I/opt/arago-2023.04/sysroots/armv7at2hf-neon-oe-linux-gnueabi/usr/include/libdrm  -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -lm -lc  -g -o CMakeFiles/gfx-ex.dir/frame-512x512-RGBA.c.o -c /home/eddie/lab2/kmscube/frame-512x512-RGBA.c",
+  "file": "/home/eddie/lab2/kmscube/frame-512x512-RGBA.c",
+  "output": "CMakeFiles/gfx-ex.dir/frame-512x512-RGBA.c.o"
+}
+]

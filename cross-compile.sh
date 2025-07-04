@@ -1,0 +1,11 @@
+#!/bin/bash
+SDK_ENV_SETUP="$1"
+TARGET_SDK_CPP_HEADERS="$2"
+
+. ${SDK_ENV_SETUP}
+
+CXXFLAGS="${CXXFLAGS} ${TARGET_SDK_CPP_HEADERS}"
+
+
+
+make -j$(nproc)

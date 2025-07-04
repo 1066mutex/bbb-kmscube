@@ -32,6 +32,7 @@
 #include "common.h"
 #include "drm-common.h"
 
+// Weakly-linked GBM functions for multi-plane and modifier support
 WEAK union gbm_bo_handle
 gbm_bo_get_handle_for_plane(struct gbm_bo *bo, int plane);
 
@@ -47,6 +48,7 @@ gbm_bo_get_stride_for_plane(struct gbm_bo *bo, int plane);
 WEAK uint32_t
 gbm_bo_get_offset(struct gbm_bo *bo, int plane);
 
+// Callback to destroy DRM framebuffer when GBM buffer is destroyed
 static void
 drm_fb_destroy_callback(struct gbm_bo *bo, void *data)
 {
@@ -54,11 +56,12 @@ drm_fb_destroy_callback(struct gbm_bo *bo, void *data)
 	struct drm_fb *fb = data;
 
 	if (fb->fb_id)
-		drmModeRmFB(drm_fd, fb->fb_id);
+		drmModeRmFB(drm_fd, fb->fb_id); // Remove framebuffer from DRM
 
-	free(fb);
+	free(fb); // Free the drm_fb struct
 }
 
+// Get or create a DRM framebuffer from a GBM buffer object
 struct drm_fb * drm_fb_get_from_bo(struct gbm_bo *bo)
 {
 	int drm_fd = gbm_device_get_fd(gbm_bo_get_device(bo));
@@ -69,7 +72,7 @@ struct drm_fb * drm_fb_get_from_bo(struct gbm_bo *bo)
 	int ret = -1;
 
 	if (fb)
-		return fb;
+		return fb; // Return cached drm_fb if it exists
 
 	fb = calloc(1, sizeof *fb);
 	fb->bo = bo;
@@ -78,6 +81,7 @@ struct drm_fb * drm_fb_get_from_bo(struct gbm_bo *bo)
 	height = gbm_bo_get_height(bo);
 	format = gbm_bo_get_format(bo);
 
+	// Try to use multi-plane/modifier-aware framebuffer creation if supported
 	if (gbm_bo_get_handle_for_plane && gbm_bo_get_modifier &&
 	    gbm_bo_get_plane_count && gbm_bo_get_stride_for_plane &&
 	    gbm_bo_get_offset) {
@@ -97,21 +101,18 @@ struct drm_fb * drm_fb_get_from_bo(struct gbm_bo *bo)
 			printf("Using modifier %" PRIx64 "\n", modifiers[0]);
 		}
 
+		// Try to create framebuffer with modifiers
 		ret = drmModeAddFB2WithModifiers(drm_fd, width, height,
 				format, handles, strides, offsets,
 				modifiers, &fb->fb_id, flags);
 	}
 
+	// Fallback to legacy framebuffer creation if needed
 	if (ret) {
 		if (flags)
 			fprintf(stderr, "Modifiers failed!\n");
 
-
-
-
-	//	memcpy(handles, (uint32_t [4]){,0,0,0}, 16);
-	//	memcpy(strides, (uint32_t [4]){gbm_bo_get_stride(bo),0,0,0}, 16);
-		
+		// Zero out unused planes
 		memset(offsets, 0, 16);
 		memset(handles, 0, 16);
 		memset(strides, 0, 16);
@@ -119,7 +120,7 @@ struct drm_fb * drm_fb_get_from_bo(struct gbm_bo *bo)
 		handles[0] = gbm_bo_get_handle(bo).u32;
 		strides[0] = gbm_bo_get_stride(bo);
 
-        // create framebuffer object for
+        // create framebuffer object for single-plane buffer
 		ret = drmModeAddFB2(drm_fd, width, height, format,
 				handles, strides, offsets, &fb->fb_id, 0);
 	}
@@ -130,11 +131,13 @@ struct drm_fb * drm_fb_get_from_bo(struct gbm_bo *bo)
 		return NULL;
 	}
 
+	// Attach the drm_fb to the GBM buffer for future lookups
 	gbm_bo_set_user_data(bo, fb, drm_fb_destroy_callback);
 
 	return fb;
 }
 
+// Find a CRTC (display controller) for a given encoder
 static uint32_t find_crtc_for_encoder(const drmModeRes *resources,
 		const drmModeEncoder *encoder) {
 	int i;
@@ -146,7 +149,7 @@ static uint32_t find_crtc_for_encoder(const drmModeRes *resources,
 		const uint32_t crtc_mask = 1 << i;
 		const uint32_t crtc_id = resources->crtcs[i];
 		if (encoder->possible_crtcs & crtc_mask) {
-			return crtc_id;
+			return crtc_id; // Found a compatible CRTC
 		}
 	}
 
@@ -154,6 +157,7 @@ static uint32_t find_crtc_for_encoder(const drmModeRes *resources,
 	return -1;
 }
 
+// Find a CRTC for a given connector by checking all its encoders
 static uint32_t find_crtc_for_connector(const struct drm *drm, const drmModeRes *resources,
 		const drmModeConnector *connector) {
 	int i;
@@ -176,6 +180,7 @@ static uint32_t find_crtc_for_connector(const struct drm *drm, const drmModeRes 
 	return -1;
 }
 
+// Helper to get DRM resources
 static int get_resources(int fd, drmModeRes **resources)
 {
 	*resources = drmModeGetResources(fd);
@@ -186,6 +191,7 @@ static int get_resources(int fd, drmModeRes **resources)
 
 #define MAX_DRM_DEVICES 64
 
+// Try to find a usable DRM device by probing all available devices
 static int find_drm_device(drmModeRes **resources)
 {
 	drmDevicePtr devices[MAX_DRM_DEVICES] = { NULL };
@@ -223,6 +229,7 @@ static int find_drm_device(drmModeRes **resources)
 	return fd;
 }
 
+
 int init_drm(struct drm *drm, const char *device, const char *mode_str,
 		unsigned int vrefresh, unsigned int count)
 {
@@ -237,6 +244,7 @@ int init_drm(struct drm *drm, const char *device, const char *mode_str,
 		if (ret < 0 && errno == EOPNOTSUPP)
 			printf("%s does not look like a modeset device\n", device);
 	} else {
+        // make sure this is initialised
 		drm->fd = find_drm_device(&resources);
 	}
 
